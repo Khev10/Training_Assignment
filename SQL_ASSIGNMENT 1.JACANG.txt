@@ -1,0 +1,338 @@
+--------- ASSIGNMENT 1 -----------
+--1. Select the employee in department 30.
+SELECT
+    employee_id, first_name,last_name,department_id
+FROM
+    employees
+where department_id=30;
+
+--2. List the names, numbers and department of all clerks.
+SELECT
+    employee_id,first_name,last_name,phone_number,job_id,department_id
+FROM
+    employees
+WHERE job_id LIKE '%CLERK';
+
+--3.  Find the depart numbers and the name of employee of all dept with Dept.no greater or equal to 20.
+SELECT
+    employee_id,first_name,last_name,department_id
+FROM
+    employees
+WHERE department_id >=20;
+
+--4. Find the employees whose commission is greater than their salary.
+SELECT
+    employee_id,first_name,last_name
+FROM
+    employees
+WHERE commission_pct>salary;
+
+--5.Find the employees whose commission is greater than 60 percent of their salary.
+SELECT
+    employee_id,first_name,last_name
+FROM
+    employees
+WHERE commission_pct>(salary*0.06);
+
+--6) Find the employee whose commission is greater than 50 percent of their salary.
+SELECT
+    employee_id,first_name,last_name
+FROM
+    employees
+WHERE commission_pct>(salary*0.05);
+
+--7) List the name, job and salary of all employees in dept 20 who earn more than 2000.
+SELECT
+    employee_id,first_name,last_name,job_id,salary
+FROM
+    employees
+WHERE department_id=20 AND SALARY>2000;
+
+--8) Find all salesmen in dept 30 whose salary is greater than or equal to Rs. 1500.
+SELECT
+    employee_id,first_name,last_name,job_id,salary,department_id
+FROM
+    employees
+WHERE department_id=30 and job_id LIKE '%MAN' and salary>=1500;
+
+--9) Find all the employees whose job is either a president or manager.
+SELECT
+    employee_id,first_name,last_name,job_id
+FROM
+    employees
+WHERE job_id like '%PRES' OR job_id like '%MGR';
+    
+--10) Find all managers who are not in dept 30.
+SELECT
+    employee_id,first_name,last_name,job_id,department_id
+FROM
+    employees
+WHERE job_id LIKE '%MGR' and department_id<>30;
+
+--11) Find the details of all managers and clerks in dept 10.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    hire_date,
+    job_id,
+    salary,
+    commission_pct,
+    manager_id,
+    department_id
+FROM
+    employees
+WHERE (job_id like '%CLERK' OR job_id like '%MGR') and department_id=10;
+
+--12) Find the details of all manager (in any dept) and all clerks in dept 10
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    hire_date,
+    job_id,
+    salary,
+    commission_pct,
+    manager_id,
+    department_id
+FROM
+    employees
+WHERE job_id LIKE '%MGR' OR (job_id like '%CLERK' and department_id=10);
+
+--13) Find the details of all managers in dept 10 and all clerks in dept 20.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    hire_date,
+    job_id,
+    salary,
+    commission_pct,
+    manager_id,
+    department_id
+FROM
+    employees
+WHERE (job_id LIKE '%MGR' and department_id=10) OR (job_id like '%CLERK' and department_id=20);
+
+--14) Find the details of all the manager in dept 10, all clerk in dept 20  
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    hire_date,
+    job_id,
+    salary,
+    commission_pct,
+    manager_id,
+    department_id
+FROM
+    employees
+WHERE (job_id LIKE '%MGR' and department_id=10) OR (job_id like '%CLERK' and department_id=20);
+
+--15) And all employees who are neither clerks nor manager but whose salary is greater than or equal to Rs. 2000.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    job_id,
+    salary
+FROM
+    employees
+WHERE job_id not like '%CLERK' AND job_id not like '%MGR' and salary>=2000;
+
+--16) Find the names of everyone in deptno 20 who is neither a clerk nor a Manager.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    job_id,
+    salary,
+    department_id
+FROM
+    employees
+WHERE (job_id not like '%CLERK' AND job_id not like '%MGR') AND department_id=20;
+
+--17) Find the employees who earns between Rs. 1200 and Rs.1400.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    salary
+FROM
+    employees
+WHERE salary BETWEEN 1200 and 1400;
+
+--18) Find the employees who are clerks, analysts or salesman.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    job_id
+FROM
+    employees
+WHERE job_id LIKE '%CLERK' OR job_id LIKE '%ANALYST' OR job_id LIKE '%MAN';
+
+--19) Find the employees who are not clerks, analyst or salesman.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    job_id
+FROM
+    employees
+WHERE job_id NOT LIKE '%CLERK' AND job_id NOT LIKE '%ANALYST' AND job_id NOT LIKE '%MAN';
+
+--20) Find the employees who do not receive a commission.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    commission_pct
+FROM
+    employees
+WHERE commission_pct is NULL;
+
+--21) Find the employee whose commission is Rs. 0.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    commission_pct
+FROM
+    employees
+WHERE commission_pct=0 or commission_pct is null;
+
+--22) Find the different jobs of the employees receiving commission.
+SELECT
+    job_id,commission_pct
+FROM employees
+WHERE commission_pct is not null;
+
+--23) Find all employees who do not receive a commission or whose Commission is less than 0.1 .
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    salary,
+    commission_pct
+FROM
+    employees
+WHERE commission_pct is NULL OR commission_pct<0.1;
+
+--- If all employees not receiving commission are entailed to Rs. 250, Show the net earnings of all employees.
+select first_name,salary + (nvl2(commission_pct,(commission_pct*salary),(+250))) "Net Earning"
+from employees
+
+--24) Find all employees whose total earnings are greater than Rs. 2000.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    salary,
+    commission_pct
+FROM
+    employees
+WHERE (salary*commission_pct)>2000;
+
+--25) Find all employees whose names begin with m.
+select first_name 
+from employees
+WHERE first_name like 'M%';
+
+--26) Find all employees whose names end with m.
+select first_name from employees
+WHERE first_name like '%m';
+
+--27) Find all employees whose names contain the letter m in any case.
+select first_name from employees
+WHERE first_name like '%m%' or first_name like '%M%';
+
+--28) Find the employees whose names are 5 characters long and end with n.
+select first_name from employees
+WHERE first_name like '____n';
+
+--29) Find the employees who have the letter r as the third letter in their name.
+select first_name from employees
+WHERE first_name like '__r%';
+
+--30) Find all employees hired in month of February (of any year).
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    hire_date
+    FROM employees
+WHERE EXTRACT(Month FROM hire_date)=2;
+
+--31) Find all employees who were hired on the last day of the month.
+select first_name,hire_date from employees
+where hire_date=last_day(hire_date);
+
+--32) Find the employees who were hired more than 12 years ago.
+select first_name,hire_date from employees
+where hire_date<add_months(sysdate,144);
+
+--33) Find the managers hired in the year 1981.
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    hire_date
+    FROM employees
+WHERE EXTRACT(YEAR FROM hire_date)=1981;
+
+--34) Display the names and the jobs of all employees, separated by a','.
+SELECT
+    first_name || ' ' || last_name || ' , ' || job_id as "complete name and job id"
+FROM employees;
+
+--35) Display the names of all employees with the initial letter only in capitals.
+select substr(first_name,1,1) "Initial Letter of Name" from employees;
+
+--36) Display the length of the name of all employees.
+select first_name,length(first_name) "Legnth of Name" from employees;
+
+--37) Show the first three characters of the names of all employees.
+select substr(first_name,1,3) "3 Letter of Name" from employees;
+
+--38) Show the last three characters of the names of all employees.
+select first_name,left(first_name,3) as string from employees;
+--39) Display the names of all employees with any 'a'.
+select first_name from employees
+WHERE first_name like '%a%' or first_name like '%A%';
+
+--40) Display the names of all employees and the position at which the string 'ar' occurs in the name.
+select first_name, job_id from employees
+WHERE first_name like '%ar%' or first_name like '%Ar%';
+
+--41) Show the salary of all employees rounding it to the nearest Rs. 1000.
+SELECT first_name,salary,round(salary,-3) "Rounded to 1000" FROM employees;
+
+SELECT first_name,salary, ceil(salary/1000)*1000 from employees;
+
+--42)Show the salary of all employees ignoring fractions ,less than Rs.1000.
+SELECT first_name,salary, trunc(salary/1000)*1000 "Computed Salary" from employees;
+
+--43) Display the details of all employees, sorted on the names.
+SELECT first_name FROM employees
+order by first_name asc;
+
+--44) Display the name of all employees, based on their tenure, with the oldest employee coming first.
+SELECT first_name,last_name,job_id,hire_date FROM employees
+order by hire_date asc;
+
+--45) Display the names, job and salary of all employees sorted on jobs and Salary.
+SELECT employee_id,first_name,last_name,job_id,salary FROM employees
+order by job_id,salary;
+
+--46) Display the names, job and salary of all employees, sorted on jobs and within job, sorted on the descending order of salary.
+SELECT employee_id,first_name,last_name,job_id,salary FROM employees
+order by salary desc,job_id asc;
